@@ -1,0 +1,24 @@
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      - サービス名
+    networks:
+      - internal_net
+      - bridge_net
+
+  サービス名:
+    image: 外部ネットワークから隔離したいイメージ名
+    expose:
+      - "8080"
+    networks:
+      - internal_net
+
+networks:
+  internal_net:
+    driver: bridge
+    internal: true
+  bridge_net:
+    driver: bridge
